@@ -4,8 +4,6 @@ export interface InputFieldProps<T extends FieldValues> extends React.InputHTMLA
   fieldName: Path<T>;
   label?: string;
 
-  icon?: React.ReactNode;
-
   inputClassName?: string;     
 
   isLoading?: boolean;
