@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import  authJwtToken  from "../features/authJwtToken/authJwtTokenSlice";
-import setUser  from "@/features/setUser/setUser";
+import  authJwtToken  from "./reduxSlices/authJwtTokenSlice";
+import userDetails  from "@/lib/reduxSlices/setUser";
 
 
 export const store = configureStore({
   reducer: {
     authJwtToken,
-    setUser,
+    userDetails,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
 
 

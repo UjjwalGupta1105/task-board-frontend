@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { User } from "@/types/User";
 import { useDispatch } from "react-redux";
-import { setUser } from "@/features/setUser/setUser";
+import { setUser } from "@/lib/reduxSlices/setUser";
 import { useRouter } from "next/navigation";
 
 export const loginUser = async (data: LoginPayload): Promise<AuthResponse> => {

@@ -1,39 +1,30 @@
 import { userServiceApi } from "@/lib/axios.config";
 import { useQuery } from "@tanstack/react-query";
-import { setUser } from "@/features/setUser/setUser";
+import { setUser } from "@/lib/reduxSlices/setUser";
 import { useDispatch } from "react-redux";
 import { User } from "@/types/User";
 
 const checkAuthStatus = async (): Promise<User | null > => {
-  const token = localStorage.getItem("jwtToken");
-  if(!token){
-    return null;
-  }
-  const res = await userServiceApi.post("/auth/authenticate-user", { authToken: token });
-  if (res?.data?.success) {
-    return res.data.data;
-  }
+  try {
+      const token = localStorage.getItem("jwtToken");
+      if(!token){
+        throw new Error("No token found");
+      }
+      const res = await userServiceApi.get("/auth/authenticate-user", { headers: { Authorization: token } });
+      if (res?.data?.success) {
+        return res.data.data;
+      }
 
-  return null;
+      throw new Error("Authentication failed");
+
+  } catch (error) {
+      throw error;
+  }
 }
 
 export const useIsAuthenticated = ()  => {
-  const dispatch = useDispatch();
-  const {data,isSuccess}=useQuery({
+  return useQuery({
     queryKey: ["authStatus"],
     queryFn: checkAuthStatus,
 });
-
-// if(data && isSuccess){
-//  if (data) {
-//         const user: User = {
-//           id: data.id,
-//           fullName: data.fullName,
-//           email: data.email,
-//         };
-//         dispatch(setUser(user));
-//       }
-// }
-
-  return data ;
 };

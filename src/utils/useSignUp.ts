@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { User } from "@/types/User";
 import { useDispatch } from "react-redux";
-import { setUser } from "@/features/setUser/setUser";
+import { setUser } from "@/lib/reduxSlices/setUser";
 import { useRouter } from "next/navigation";
 
 export const registerUser = async (data: SignUpPayload): Promise<AuthResponse> => {
